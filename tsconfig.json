@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    //
+    // File Layout
+    // `rootDir` is where your source code lives, e.g., 'src'
+    "rootDir": "./src",
+    // `outDir` is where TypeScript will put the compiled JavaScript files, e.g., 'dist'
+    "outDir": "./dist",
+
+    //
+    // Environment Settings
+    // `module` should be 'commonjs' for Node.js backends
+    "module": "commonjs",
+    // `target` specifies the JavaScript version. 'es2020' or later is a good choice.
+    "target": "es2020",
+    // `lib` should include the JavaScript libraries your code needs.
+    "lib": ["es2020"],
+    // `types` tells TypeScript where to find type definitions. You'll need `node` and `express`.
+    "types": ["node", "express"],
+    // Enables importing CommonJS modules with ES6 syntax. This is crucial for Express.
+    "esModuleInterop": true,
+    // Allows you to get the correct type from `require()` calls.
+    "allowSyntheticDefaultImports": true,
+
+    //
+    // Other Outputs
+    // `sourceMap` generates source map files for debugging.
+    "sourceMap": true,
+    // `declaration` and `declarationMap` are for creating type definition files (.d.ts).
+    // They aren't always needed for a backend but are useful for publishing a package.
+    "declaration": true,
+    "declarationMap": true,
+
+    //
+    // Stricter Typechecking Options
+    // These are good practices for robust code.
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+
+    //
+    // Other options that are not suitable for a Node.js Express backend
+    // `jsx`: Not relevant for a backend.
+    "jsx": "react-jsx",
+    // `verbatimModuleSyntax` and `isolatedModules`: These are primarily for frontend build systems and can cause issues with Node's module system.
+    "verbatimModuleSyntax": false,
+    "isolatedModules": false,
+    // `moduleDetection`: Can be set to 'auto' or 'force', but it's not strictly necessary if you have a `rootDir`.
+    "moduleDetection": "auto",
+    // `skipLibCheck`: This is a good practice to prevent type errors from third-party libraries.
+    "skipLibCheck": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
