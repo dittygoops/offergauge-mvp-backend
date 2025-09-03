@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import { authenticateUser } from '../middleware/auth';
+import { Deal } from '../types/Deal';
+import { saveDeal, getDealsByUserId, getDealByDealId } from '../db/supabase';
 
 // Create an Express Router instance
 const router = express.Router();
@@ -21,65 +23,158 @@ interface AuthenticatedRequest extends Request {
 router.post(
     '/save',
     authenticateUser,
-    async (req: AuthenticatedRequest, res: Response) => {
+    async (req: AuthenticatedRequest, res: Response): Promise<void | Response> => {
         try {
-            // The user object is available on req.user thanks to the middleware.
             const userId = req.user?.id;
-            const data = req.body;
+            if (!userId) {
+                return res
+                    .status(401)
+                    .json({ error: 'User not authenticated.' });
+            }
 
-            console.log(
-                `Authenticated user ${userId} wants to save data:`,
-                data
-            );
+            // Map the validated form data to the Deal type for the database
+            const dealData: Omit<Deal, 'id'> = {
+                user_id: userId,
+                business_name: req.body.businessName,
+                asking_price: req.body.askingPrice,
+                annual_revenue: req.body.annualRevenue,
+                annual_net_income: req.body.annualNetIncome,
+                ffe_included: req.body.ffeIncluded,
+                inventory_included: req.body.inventoryIncluded,
+                real_estate_included: req.body.realEstateIncluded,
+                ffe_value: req.body.ffeValue,
+                inventory_value: req.body.inventoryValue,
+                purchasing_real_estate: req.body.purchasingRealEstate,
+                real_estate_value: req.body.realEstateValue,
+                annual_rent: req.body.annualRent,
+                buyer_min_salary: req.body.buyerMinSalary,
+                working_capital_requirement: req.body.workingCapitalRequirement,
+                capex_maintanence: req.body.capexMaintenance,
+                capex_new_investments: req.body.capexNewInvestments,
+                due_to_seller_business: req.body.dueToSellerBusiness,
+                due_to_seller_real_estate: req.body.dueToSellerRealEstate,
+                total_due_to_seller: req.body.totalDueToSeller,
+                total_cash_at_closing_to_seller:
+                    req.body.totalCashAtClosingToSeller,
+                seller_financing_paid_to_seller:
+                    req.body.sellerFinancingPaidToSeller,
+                working_capital_required: req.body.workingCapitalRequired,
+                loan_closing_costs: req.body.loanClosingCosts,
+                total_use_of_funds: req.body.totalUseOfFunds,
+                buyer_cash: req.body.buyerCash,
+                buyer_cash_percent: req.body.buyerCashPercent,
+                seller_financing: req.body.sellerFinancing,
+                seller_financing_percent: req.body.sellerFinancingPercent,
+                term_loan: req.body.termLoan,
+                loan_closing_costs_percent: req.body.loanClosingCostsPercent,
+                loan_payments: req.body.loanPayments,
+                equipment_assets: req.body.equipmentAssets,
+                inventory: req.body.inventory,
+                working_capital: req.body.workingCapital,
+                loan_amount: req.body.loanAmount,
+                loan_closing_cost: req.body.loanClosingCost,
+                ebitda: req.body.ebitda,
+                loan_term: req.body.loanTerm,
+                interest_rate: req.body.interestRate,
+            };
 
-            // This is where you would perform your database operation
-            // For now, it's just a placeholder response
-            res.status(200).json({
-                message: 'Data saved for authenticated user.',
+            const { data, error } = await saveDeal(dealData);
+
+            if (error) {
+                console.error('Supabase insert error:', error.message);
+                return res.status(500).json({ error: 'Failed to save deal.' });
+            }
+
+            res.status(201).json({
+                message: 'Deal saved successfully!',
+                deal: data?.[0],
             });
-        } catch (error) {
-            console.error('Error in /save route:', error);
+        } catch (err) {
+            console.error('Server error:', err);
             res.status(500).json({ error: 'Internal server error.' });
         }
     }
 );
 
-// /**
-//  * @route   POST /save-deal
-//  * @desc    Saves a deal to the 'deals' table for an authenticated user.
-//  * @access  Private
-//  */
-// router.post('/save-deal', authenticateUser, async (req: AuthenticatedRequest, res: Response) => {
-//   try {
-//     // Get the authenticated user's ID from the request object
-//     const userId = req.user?.id;
+/**
+ * @route   GET /get-deals
+ * @desc    Retrieves a list of deals (business name and ID) for an authenticated user.
+ * @access  Private
+ */
+router.get(
+    '/get-deals',
+    authenticateUser,
+    async (req: AuthenticatedRequest, res: Response): Promise<void | Response> => {
+        try {
+            const userId = req.user?.id;
+            if (!userId) {
+                return res
+                    .status(401)
+                    .json({ error: 'User not authenticated.' });
+            }
 
-//     // Get the deal form data from the request body
-//     const dealData = req.body;
+            const { data, error } = await getDealsByUserId(userId);
 
-//     // Combine the userId with the deal data to create the full record
-//     const newDeal = {
-//       user_id: userId, // This links the deal to the user
-//       ...dealData,      // The rest of the fields from the form
-//     };
+            if (error) {
+                console.error('Supabase query error:', error.message);
+                return res.status(500).json({ error: 'Failed to retrieve deals.' });
+            }
 
-//     // Use the `saveDeal` function from your supabase.ts file
-//     const { data, error } = await saveDeal(newDeal);
+            res.status(200).json({ deals: data });
+        } catch (err) {
+            console.error('Server error:', err);
+            res.status(500).json({ error: 'Internal server error.' });
+        }
+    }
+);
 
-//     if (error) {
-//       console.error('Supabase insert error:', error.message);
-//       return res.status(500).json({ error: 'Failed to save deal.' });
-//     }
+/**
+ * @route   GET /get-deal/:dealId
+ * @desc    Retrieves a single deal by its ID for an authenticated user.
+ * @access  Private
+ */
+router.get(
+    '/get-deal/:dealId',
+    authenticateUser,
+    async (req: AuthenticatedRequest, res: Response): Promise<void | Response> => {
+        try {
+            const userId = req.user?.id;
+            const { dealId } = req.params;
 
-//     res.status(201).json({
-//       message: 'Deal saved successfully!',
-//       deal: data[0]
-//     });
+            if (!userId) {
+                return res
+                    .status(401)
+                    .json({ error: 'User not authenticated.' });
+            }
 
-//   } catch (err) {
-//     console.error('Server error:', err);
-//     res.status(500).json({ error: 'Internal server error.' });
-//   }
-// });
+            if (!dealId) {
+                return res
+                    .status(400)
+                    .json({ error: 'Deal ID is required.' });
+            }
+
+            const { data, error } = await getDealByDealId(dealId);
+
+            if (error) {
+                console.error('Supabase query error:', error.message);
+                return res.status(500).json({ error: 'Failed to retrieve deal.' });
+            }
+
+            if (!data) {
+                return res.status(404).json({ error: 'Deal not found.' });
+            }
+
+            // Optional: Add a check to ensure the user owns the deal
+            if (data.user_id !== userId) {
+                return res.status(403).json({ error: 'Unauthorized access.' });
+            }
+
+            res.status(200).json({ deal: data });
+        } catch (err) {
+            console.error('Server error:', err);
+            res.status(500).json({ error: 'Internal server error.' });
+        }
+    }
+);
 
 export default router;

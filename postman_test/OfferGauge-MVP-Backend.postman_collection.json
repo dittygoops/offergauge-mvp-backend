@@ -24,23 +24,6 @@
 			"response": []
 		},
 		{
-			"name": "public",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{backend-url}}/public",
-					"host": [
-						"{{backend-url}}"
-					],
-					"path": [
-						"public"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "save",
 			"request": {
 				"auth": {
@@ -48,7 +31,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6IlZ0YXpYYy80eitNT1lvR2siLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3pscGFyanRweWp0bW10dmJhemdrLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJjYmMzMDMyOS1lODIzLTQ1OTAtYjMzOC00MjI1MzM2ZTVlMTYiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzU2ODYyNjI3LCJpYXQiOjE3NTY4NTkwMjcsImVtYWlsIjoiYWRpdHlhLmd1cDE2QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwicHJvdmlkZXJzIjpbImdvb2dsZSJdfSwidXNlcl9tZXRhZGF0YSI6eyJhdmF0YXJfdXJsIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTDVmenV4T2t6d1doLUN5aHFZMWdOaEhtY2JTUU4wZDI4d0N1am9tZ1diR2lNV1Y2bF89czk2LWMiLCJlbWFpbCI6ImFkaXR5YS5ndXAxNkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZnVsbF9uYW1lIjoiQWRpdHlhIEd1cHRhIiwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tIiwibmFtZSI6IkFkaXR5YSBHdXB0YSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0w1Znp1eE9rendXaC1DeWhxWTFnTmhIbWNiU1FOMGQyOHdDdWpvbWdXYkdpTVdWNmxfPXM5Ni1jIiwicHJvdmlkZXJfaWQiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzciLCJzdWIiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzcifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJvYXV0aCIsInRpbWVzdGFtcCI6MTc1Njg1OTAyN31dLCJzZXNzaW9uX2lkIjoiNjlkZWM4ZjktYThlMy00NmQ2LWFjOWQtYzJkZjhhZjY5Zjc3IiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.CwOJ4Bnzkf3diYV8gjuDT74ROZHjTTXFfki8yHzqzqs",
+							"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6IlZ0YXpYYy80eitNT1lvR2siLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3pscGFyanRweWp0bW10dmJhemdrLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJjYmMzMDMyOS1lODIzLTQ1OTAtYjMzOC00MjI1MzM2ZTVlMTYiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzU2ODY2NTM2LCJpYXQiOjE3NTY4NjI5MzYsImVtYWlsIjoiYWRpdHlhLmd1cDE2QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwicHJvdmlkZXJzIjpbImdvb2dsZSJdfSwidXNlcl9tZXRhZGF0YSI6eyJhdmF0YXJfdXJsIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTDVmenV4T2t6d1doLUN5aHFZMWdOaEhtY2JTUU4wZDI4d0N1am9tZ1diR2lNV1Y2bF89czk2LWMiLCJlbWFpbCI6ImFkaXR5YS5ndXAxNkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZnVsbF9uYW1lIjoiQWRpdHlhIEd1cHRhIiwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tIiwibmFtZSI6IkFkaXR5YSBHdXB0YSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0w1Znp1eE9rendXaC1DeWhxWTFnTmhIbWNiU1FOMGQyOHdDdWpvbWdXYkdpTVdWNmxfPXM5Ni1jIiwicHJvdmlkZXJfaWQiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzciLCJzdWIiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzcifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJvYXV0aCIsInRpbWVzdGFtcCI6MTc1Njg1OTAyN31dLCJzZXNzaW9uX2lkIjoiNjlkZWM4ZjktYThlMy00NmQ2LWFjOWQtYzJkZjhhZjY5Zjc3IiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.dRHINmgJzGtA7Vz5NSY0FfGG0FggLjgkdwbwk5mMVog",
 							"type": "string"
 						}
 					]
@@ -57,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Jane Doe\",\r\n  \"email\": \"jane.doe@example.com\",\r\n  \"message\": \"This is a test message from Postman.\"\r\n}",
+					"raw": "{\r\n    \"businessName\": \"Your Business Name\",\r\n    \"askingPrice\": 150000,\r\n    \"annualRevenue\": 200000,\r\n    \"annualNetIncome\": 50000,\r\n    \"ffeIncluded\": false,\r\n    \"inventoryIncluded\": false,\r\n    \"realEstateIncluded\": false,\r\n    \"ffeValue\": 0,\r\n    \"inventoryValue\": 0,\r\n    \"purchasingRealEstate\": false,\r\n    \"realEstateValue\": 0,\r\n    \"annualRent\": 0,\r\n    \"buyerMinSalary\": 45000,\r\n    \"workingCapitalRequirement\": 10000,\r\n    \"capexMaintenance\": 2000,\r\n    \"capexNewInvestments\": 5000,\r\n    \"dueToSellerBusiness\": 150000,\r\n    \"dueToSellerRealEstate\": 0,\r\n    \"totalDueToSeller\": 150000,\r\n    \"totalCashAtClosingToSeller\": 150000,\r\n    \"sellerFinancingPaidToSeller\": 0,\r\n    \"workingCapitalRequired\": 10000,\r\n    \"loanClosingCosts\": 3000,\r\n    \"totalUseOfFunds\": 163000,\r\n    \"buyerCash\": 32600,\r\n    \"buyerCashPercent\": 20,\r\n    \"sellerFinancing\": 0,\r\n    \"sellerFinancingPercent\": 0,\r\n    \"termLoan\": 130400,\r\n    \"loanClosingCostsPercent\": 2,\r\n    \"loanPayments\": 1500,\r\n    \"equipmentAssets\": 15000,\r\n    \"inventory\": 5000,\r\n    \"workingCapital\": 10000,\r\n    \"loanAmount\": 130400,\r\n    \"loanClosingCost\": 3000,\r\n    \"ebitda\": 60000,\r\n    \"loanTerm\": 120,\r\n    \"interestRate\": 7.5\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -65,11 +48,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{backend-url}}/save",
+					"raw": "{{backend-url}}/api/save",
 					"host": [
 						"{{backend-url}}"
 					],
 					"path": [
+						"api",
 						"save"
 					]
 				}

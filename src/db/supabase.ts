@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { Deal } from '../types/Deal';
 
 // Load Supabase URL and keys from environment variables
 const supabaseUrl = process.env.SUPABASE_URL as string;
@@ -9,22 +10,23 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY as string;
 export const supabaseClient = createClient(supabaseUrl, supabaseServiceRoleKey);
 
 // Method signature for saving a deal to the database
-export async function saveDeal(dealData: any) {
+export async function saveDeal(dealData: Omit<Deal, 'id'>) {
     // This will contain the logic to insert a new deal
     const { data, error } = await supabaseClient
         .from('deals')
         .insert([dealData])
         .select();
-    return { data, error };
+    return { data: data as Deal[] | null, error };
 }
 
-// Method signature for getting all deals for a specific user
 export async function getDealsByUserId(userId: string) {
-    // This will contain the logic to query deals based on a user_id
     const { data, error } = await supabaseClient
         .from('deals')
-        .select('*')
+        .select('id, business_name') // Select only the 'id' and 'business_name' columns
         .eq('user_id', userId);
+
+    // The return type is now an array of objects with only id and business_name
+    // We can type cast it to a more specific type if needed, but 'data' is sufficient
     return { data, error };
 }
 
@@ -34,7 +36,7 @@ export async function getDealByDealId(dealId: string) {
     const { data, error } = await supabaseClient
         .from('deals')
         .select('*')
-        .eq('deal_id', dealId)
+        .eq('id', dealId)
         .single();
-    return { data, error };
+    return { data: data as Deal | null, error };
 }
