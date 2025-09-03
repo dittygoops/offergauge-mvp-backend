@@ -1,37 +1,32 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express, { Request, Response } from 'express';
-import { authenticateUser } from './middleware/auth';
+import express from 'express';
+import cors from 'cors';
+import apiRoutes from './routes/api';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Middleware to parse JSON requests
+// Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// A simple GET route
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, TypeScript Express API!');
+// Enable CORS for all origins, allowing your frontend to connect
+// You might want to restrict this to your frontend's domain in production
+app.use(cors());
+
+// Use the imported router for all /api endpoints
+app.use('/api', apiRoutes);
+
+// A simple root route to confirm the server is running
+app.get('/', (req, res) => {
+    res.send(
+        'Welcome to the Express API. Go to /api/<route> for the API endpoints.'
+    );
 });
 
-// This is a protected route.
-app.post('/save', authenticateUser, (req: Request, res: Response) => {
-    // At this point, the user is authenticated.
-    // The user object is available on req.user thanks to the middleware.
-    const userId = (req as any).user.id;
-    const data = req.body;
-
-    console.log(`Authenticated user ${userId} wants to save data:`, data);
-
-    res.status(200).json({ message: 'Data saved for authenticated user.' });
-});
-
-// This is a public route and doesn't require authentication.
-app.get('/public', (req: Request, res: Response) => {
-    res.send('This is a public endpoint.');
-});
-
+// Start the server
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
+    console.log('You can now make requests to the API endpoints.');
 });
