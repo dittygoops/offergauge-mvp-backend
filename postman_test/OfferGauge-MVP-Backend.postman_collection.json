@@ -59,6 +59,100 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get-deals",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6IlZ0YXpYYy80eitNT1lvR2siLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3pscGFyanRweWp0bW10dmJhemdrLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJjYmMzMDMyOS1lODIzLTQ1OTAtYjMzOC00MjI1MzM2ZTVlMTYiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzU2ODY2NTM2LCJpYXQiOjE3NTY4NjI5MzYsImVtYWlsIjoiYWRpdHlhLmd1cDE2QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwicHJvdmlkZXJzIjpbImdvb2dsZSJdfSwidXNlcl9tZXRhZGF0YSI6eyJhdmF0YXJfdXJsIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTDVmenV4T2t6d1doLUN5aHFZMWdOaEhtY2JTUU4wZDI4d0N1am9tZ1diR2lNV1Y2bF89czk2LWMiLCJlbWFpbCI6ImFkaXR5YS5ndXAxNkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZnVsbF9uYW1lIjoiQWRpdHlhIEd1cHRhIiwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tIiwibmFtZSI6IkFkaXR5YSBHdXB0YSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0w1Znp1eE9rendXaC1DeWhxWTFnTmhIbWNiU1FOMGQyOHdDdWpvbWdXYkdpTVdWNmxfPXM5Ni1jIiwicHJvdmlkZXJfaWQiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzciLCJzdWIiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzcifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJvYXV0aCIsInRpbWVzdGFtcCI6MTc1Njg1OTAyN31dLCJzZXNzaW9uX2lkIjoiNjlkZWM4ZjktYThlMy00NmQ2LWFjOWQtYzJkZjhhZjY5Zjc3IiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.dRHINmgJzGtA7Vz5NSY0FfGG0FggLjgkdwbwk5mMVog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{backend-url}}/api/get-deals",
+					"host": [
+						"{{backend-url}}"
+					],
+					"path": [
+						"api",
+						"get-deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-deal-by-id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6IlZ0YXpYYy80eitNT1lvR2siLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3pscGFyanRweWp0bW10dmJhemdrLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJjYmMzMDMyOS1lODIzLTQ1OTAtYjMzOC00MjI1MzM2ZTVlMTYiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzU2ODY2NTM2LCJpYXQiOjE3NTY4NjI5MzYsImVtYWlsIjoiYWRpdHlhLmd1cDE2QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwicHJvdmlkZXJzIjpbImdvb2dsZSJdfSwidXNlcl9tZXRhZGF0YSI6eyJhdmF0YXJfdXJsIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTDVmenV4T2t6d1doLUN5aHFZMWdOaEhtY2JTUU4wZDI4d0N1am9tZ1diR2lNV1Y2bF89czk2LWMiLCJlbWFpbCI6ImFkaXR5YS5ndXAxNkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZnVsbF9uYW1lIjoiQWRpdHlhIEd1cHRhIiwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tIiwibmFtZSI6IkFkaXR5YSBHdXB0YSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0w1Znp1eE9rendXaC1DeWhxWTFnTmhIbWNiU1FOMGQyOHdDdWpvbWdXYkdpTVdWNmxfPXM5Ni1jIiwicHJvdmlkZXJfaWQiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzciLCJzdWIiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzcifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJvYXV0aCIsInRpbWVzdGFtcCI6MTc1Njg1OTAyN31dLCJzZXNzaW9uX2lkIjoiNjlkZWM4ZjktYThlMy00NmQ2LWFjOWQtYzJkZjhhZjY5Zjc3IiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.dRHINmgJzGtA7Vz5NSY0FfGG0FggLjgkdwbwk5mMVog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{backend-url}}/api/get-deal/your-deal-id-here",
+					"host": [
+						"{{backend-url}}"
+					],
+					"path": [
+						"api",
+						"get-deal",
+						"your-deal-id-here"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save-survey",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6IlZ0YXpYYy80eitNT1lvR2siLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3pscGFyanRweWp0bW10dmJhemdrLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJjYmMzMDMyOS1lODIzLTQ1OTAtYjMzOC00MjI1MzM2ZTVlMTYiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzU2ODY2NTM2LCJpYXQiOjE3NTY4NjI5MzYsImVtYWlsIjoiYWRpdHlhLmd1cDE2QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwicHJvdmlkZXJzIjpbImdvb2dsZSJdfSwidXNlcl9tZXRhZGF0YSI6eyJhdmF0YXJfdXJsIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTDVmenV4T2t6d1doLUN5aHFZMWdOaEhtY2JTUU4wZDI4d0N1am9tZ1diR2lNV1Y2bF89czk2LWMiLCJlbWFpbCI6ImFkaXR5YS5ndXAxNkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZnVsbF9uYW1lIjoiQWRpdHlhIEd1cHRhIiwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tIiwibmFtZSI6IkFkaXR5YSBHdXB0YSIsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0w1Znp1eE9rendXaC1DeWhxWTFnTmhIbWNiU1FOMGQyOHdDdWpvbWdXYkdpTVdWNmxfPXM5Ni1jIiwicHJvdmlkZXJfaWQiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzciLCJzdWIiOiIxMTA1MTU0MjA5MjIzODgwMDMwMzcifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJvYXV0aCIsInRpbWVzdGFtcCI6MTc1Njg1OTAyN31dLCJzZXNzaW9uX2lkIjoiNjlkZWM4ZjktYThlMy00NmQ2LWFjOWQtYzJkZjhhZjY5Zjc3IiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.dRHINmgJzGtA7Vz5NSY0FfGG0FggLjgkdwbwk5mMVog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"where\": \"United States\",\r\n    \"role\": \"Business Buyer\",\r\n    \"reason\": \"Looking to acquire a profitable business\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{backend-url}}/api/save-survey",
+					"host": [
+						"{{backend-url}}"
+					],
+					"path": [
+						"api",
+						"save-survey"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

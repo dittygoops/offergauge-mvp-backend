@@ -1,7 +1,13 @@
 import express, { Request, Response } from 'express';
 import { authenticateUser } from '../middleware/auth';
 import { Deal } from '../types/Deal';
-import { saveDeal, getDealsByUserId, getDealByDealId } from '../db/supabase';
+import {
+    saveDeal,
+    getDealsByUserId,
+    getDealByDealId,
+    saveSurvey,
+} from '../db/supabase';
+import { Survey } from '../types/Survey';
 
 // Create an Express Router instance
 const router = express.Router();
@@ -23,7 +29,10 @@ interface AuthenticatedRequest extends Request {
 router.post(
     '/save',
     authenticateUser,
-    async (req: AuthenticatedRequest, res: Response): Promise<void | Response> => {
+    async (
+        req: AuthenticatedRequest,
+        res: Response
+    ): Promise<void | Response> => {
         try {
             const userId = req.user?.id;
             if (!userId) {
@@ -87,7 +96,7 @@ router.post(
 
             res.status(201).json({
                 message: 'Deal saved successfully!',
-                deal: data?.[0],
+                deal: data,
             });
         } catch (err) {
             console.error('Server error:', err);
@@ -104,7 +113,10 @@ router.post(
 router.get(
     '/get-deals',
     authenticateUser,
-    async (req: AuthenticatedRequest, res: Response): Promise<void | Response> => {
+    async (
+        req: AuthenticatedRequest,
+        res: Response
+    ): Promise<void | Response> => {
         try {
             const userId = req.user?.id;
             if (!userId) {
@@ -117,7 +129,9 @@ router.get(
 
             if (error) {
                 console.error('Supabase query error:', error.message);
-                return res.status(500).json({ error: 'Failed to retrieve deals.' });
+                return res
+                    .status(500)
+                    .json({ error: 'Failed to retrieve deals.' });
             }
 
             res.status(200).json({ deals: data });
@@ -136,7 +150,10 @@ router.get(
 router.get(
     '/get-deal/:dealId',
     authenticateUser,
-    async (req: AuthenticatedRequest, res: Response): Promise<void | Response> => {
+    async (
+        req: AuthenticatedRequest,
+        res: Response
+    ): Promise<void | Response> => {
         try {
             const userId = req.user?.id;
             const { dealId } = req.params;
@@ -148,16 +165,16 @@ router.get(
             }
 
             if (!dealId) {
-                return res
-                    .status(400)
-                    .json({ error: 'Deal ID is required.' });
+                return res.status(400).json({ error: 'Deal ID is required.' });
             }
 
             const { data, error } = await getDealByDealId(dealId);
 
             if (error) {
                 console.error('Supabase query error:', error.message);
-                return res.status(500).json({ error: 'Failed to retrieve deal.' });
+                return res
+                    .status(500)
+                    .json({ error: 'Failed to retrieve deal.' });
             }
 
             if (!data) {
@@ -170,6 +187,54 @@ router.get(
             }
 
             res.status(200).json({ deal: data });
+        } catch (err) {
+            console.error('Server error:', err);
+            res.status(500).json({ error: 'Internal server error.' });
+        }
+    }
+);
+
+/**
+ * @route   POST /save-survey
+ * @desc    Saves a survey for an authenticated user.
+ * @access  Private
+ */
+router.post(
+    '/save-survey',
+    authenticateUser,
+    async (
+        req: AuthenticatedRequest,
+        res: Response
+    ): Promise<void | Response> => {
+        try {
+            const userId = req.user?.id;
+            if (!userId) {
+                return res
+                    .status(401)
+                    .json({ error: 'User not authenticated.' });
+            }
+
+            // Map the validated form data to the Survey type for the database
+            const surveyData: Omit<Survey, 'id'> = {
+                user_id: userId,
+                where: req.body.where,
+                role: req.body.role,
+                reason: req.body.reason,
+            };
+
+            const { data, error } = await saveSurvey(surveyData);
+
+            if (error) {
+                console.error('Supabase insert error:', error.message);
+                return res
+                    .status(500)
+                    .json({ error: 'Failed to save survey.' });
+            }
+
+            res.status(201).json({
+                message: 'Survey saved successfully!',
+                survey: data,
+            });
         } catch (err) {
             console.error('Server error:', err);
             res.status(500).json({ error: 'Internal server error.' });

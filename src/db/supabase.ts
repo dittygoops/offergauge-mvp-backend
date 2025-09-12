@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { Deal } from '../types/Deal';
+import { Survey } from '../types/Survey';
 
 // Load Supabase URL and keys from environment variables
 const supabaseUrl = process.env.SUPABASE_URL as string;
@@ -16,7 +17,7 @@ export async function saveDeal(dealData: Omit<Deal, 'id'>) {
         .from('deals')
         .insert([dealData])
         .select();
-    return { data: data as Deal[] | null, error };
+    return { data: data as Deal | null, error };
 }
 
 export async function getDealsByUserId(userId: string) {
@@ -39,4 +40,12 @@ export async function getDealByDealId(dealId: string) {
         .eq('id', dealId)
         .single();
     return { data: data as Deal | null, error };
+}
+
+export async function saveSurvey(surveyData: Omit<Survey, 'id'>) {
+    const { data, error } = await supabaseClient
+        .from('surveys')
+        .insert([surveyData])
+        .select();
+    return { data: data as Survey | null, error };
 }
