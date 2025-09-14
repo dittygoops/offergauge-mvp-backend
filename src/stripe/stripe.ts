@@ -1,8 +1,4 @@
 import Stripe from 'stripe';
-import dotenv from 'dotenv';
-
-// Load environment variables from .env file
-dotenv.config();
 
 // Initialize the Stripe client with the secret key and API version
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
