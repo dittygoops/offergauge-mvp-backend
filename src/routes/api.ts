@@ -8,6 +8,7 @@ import {
     saveSurvey,
 } from '../db/supabase';
 import { Survey } from '../types/Survey';
+import { createSubscriptionSession } from '../stripe/stripe';
 
 // Create an Express Router instance
 const router = express.Router();
@@ -238,6 +239,41 @@ router.post(
         } catch (err) {
             console.error('Server error:', err);
             res.status(500).json({ error: 'Internal server error.' });
+        }
+    }
+);
+
+/**
+ * @route POST /create-checkout-session
+ * @desc    Creates a checkout session for an authenticated user.
+ * @access  Private
+ */
+router.post(
+    '/create-checkout-session',
+    authenticateUser,
+    async (
+        req: AuthenticatedRequest,
+        res: Response
+    ): Promise<void | Response> => {
+        try {
+            const userId = req.user?.id;
+            if (!userId) {
+                return res
+                    .status(401)
+                    .json({ error: 'User not authenticated.' });
+            }
+
+            // Call the function to create the Stripe Checkout Session
+            const sessionUrl = await createSubscriptionSession(userId);
+
+            // Send the URL back to the frontend for redirection
+            return res.status(200).json({ url: sessionUrl });
+        } catch (error) {
+            console.error('Error creating Stripe session:', error);
+            // In a production app, you might send a more user-friendly error message
+            return res
+                .status(500)
+                .json({ error: 'Failed to create Stripe Checkout Session.' });
         }
     }
 );
