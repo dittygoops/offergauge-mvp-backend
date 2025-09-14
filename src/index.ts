@@ -13,7 +13,17 @@ app.use(express.json());
 
 // Enable CORS for all origins, allowing your frontend to connect
 // You might want to restrict this to your frontend's domain in production
-app.use(cors());
+const allowedOrigins = [
+    'http://localhost:5173', // Your local React development server
+    'https://offergauge-mvp-backend-git-stripe-dittygoops-projects.vercel.app' // Your Vercel domain
+    // Add other production domains here as needed
+  ];
+  
+  const options: cors.CorsOptions = {
+    origin: allowedOrigins
+  };
+  
+  app.use(cors(options));
 
 // Use the imported router for all /api endpoints
 app.use('/api', apiRoutes);
