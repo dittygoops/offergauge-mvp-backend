@@ -22,11 +22,11 @@ app.use(cors());
 //     'https://offergauge-mvp-backend-git-stripe-dittygoops-projects.vercel.app' // Your Vercel domain
 //     // Add other production domains here as needed
 //   ];
-  
+
 //   const options: cors.CorsOptions = {
 //     origin: allowedOrigins
 //   };
-  
+
 //   app.use(cors(options));
 
 // Use the imported router for all /api endpoints
